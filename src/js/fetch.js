@@ -1,10 +1,12 @@
-var testing = document.getElementById('testing');
+var testing = document.getElementById('start');
+let syntax = [];
+
 testing.addEventListener('click', function() {
     listsPost('testing', null);
 })
 
 async function test2(search) {
-    const thing = document.getElementById('testing');
+    const thing = document.getElementById('start');
     while (thing.lastElementChild) {
         thing.removeChild(thing.lastElementChild);
     }
@@ -20,13 +22,13 @@ search_bar.addEventListener('keyup', function() {
     timer = setTimeout(() => {
         if (lastResult === search_bar.value) return;
         lastResult = search_bar.value;
-        const thing = document.getElementById('testing');
+        const thing = document.getElementById('start');
         while (thing.lastElementChild) {
             thing.removeChild(thing.lastElementChild);
         }
 
         listsPost('testing', search_bar.value);
-    }, 1000);
+    }, 500);
 });
 
 async function fetchPosts() {
@@ -44,6 +46,25 @@ async function fetchPosts() {
     }
 }
 
+saveSyntax();
+async function saveSyntax() {
+    console.log(`loading syntax!`);
+    fetchPosts()
+        .then((posts) => {
+            if (!posts) return;
+
+            for (const post of posts) {
+                syntax.push({
+                    "addon": post.addon.name,
+                    "pattern": post.syntax_pattern,
+                    "description": post.description,
+                    "type": post.syntax_type
+                });
+            }
+        })
+    console.log(`finished loading all syntax!`);
+}
+
 let lastResult;
 function listsPost(postContainerElementID, search) {
     const postContainerElement = document.getElementById(postContainerElementID);
@@ -51,58 +72,42 @@ function listsPost(postContainerElementID, search) {
     if (!postContainerElement) {
         return;
     }
-    
-    fetchPosts()
-        .then((posts) => {
-            if (!posts) {
-                return;
-            }
-            if (search != null) {
-                posts = posts.filter((post) => {
-                    return post.syntax_pattern.toLowerCase().includes(search.toLowerCase());
-                });
-            } 
 
-            for (const post of posts) {
-                postContainerElement.appendChild(postElement(post));
-            }
+    let sorted = syntax;
+    if (!search != null) {
+        sorted = syntax.filter((s) => {
+            return s.pattern.toLowerCase().includes(search.toLowerCase());
         })
-        .catch((e) => {
-            console.error(e);
-        });
+    }
+    
+    sorted.forEach((x, i) => {
+        postElement(x);
+    })
 }
 
 function postElement(post) {
-    const a = create('a', 'mb-4 mt-5', null);
-    const div1 = create('div', 'bg-gray-400 bg-opacity-40 rounded-lg', null);
-    const div2 = create('div', 'flex', null);
-    const name = create('h1', 'text-4xl text-purple-700', post.addon.name);
-    const desc = create('p', 'text-gray-400 mt-1.5 ml-4', post.syntax_type);
-
-    const div3 = create('div', 'mt-5', null);
-    const code = create('code', 'bg-gray-800 ml-4 rounded-md flex pb-5 pt-2 pl-2 pr-2 mr-28', post.syntax_pattern);
-    const div4 = create('div', 'mt-5 ml-4 text-gray-400', null);
-    const p1 = create('p', null, post.description);
-
-    const div5 = create('div', 'mt-6 ml-2 text-2xl', null);
-    const button = create('button', null, "View Examples &#10148;");
+    // new
+    const a = create('a', 'bg-gray-400 ml-24 mr-24 rounded-xl', null);
+    const div1 = create('div', 'ml-4', null);
+    const div2 = create('div', 'flex float-right mr-7', null);
+    // svg1
+    const h1 = create('h1', 'leading-6 text-3xl mt-2 text-blue-600 font-medium', post.addon);
+    const type = create('p', 'text-white mb-5 ml-2', post.type);
+    const code = create('code', 'bg-gray-600 ml-5 flex mr-5 rounded-md pb-5 pt-2 pl-2 pr-2', post.pattern);
+    const desc = create('p', 'mt-8 ml-7 text-gray-600', post.description);
+    const button = create('button', 'mt-4 ml-3', "show more information");
 
     // creation
-    const anchor = document.getElementById('testing');
-    
-    anchor.appendChild(a);  
+    const anchor = document.getElementById('start');
+
+    anchor.appendChild(a);
     a.appendChild(div1);
     div1.appendChild(div2);
-    div2.appendChild(desc);
-    div2.appendChild(name);
-    div1.appendChild(div3);
-    div3.appendChild(code);
-    div3.appendChild(div4);
-    div4.appendChild(p1);
-    div1.appendChild(div5);
-    div5.appendChild(button);
-    
-    return name;
+    div1.appendChild(h1);
+    div1.appendChild(type);
+    a.appendChild(code);
+    a.appendChild(desc);
+    a.appendChild(button);
 }
 
 function create(element, c, text) {
