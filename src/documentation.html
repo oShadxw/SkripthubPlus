@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/dist/output.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    </head> 
+    <body class=" bg-black text-white font-sans">
+        <nav>
+            <div class="pt-5 pl-5 pr-5 pb-2 text-gray-400">
+                <a href="./index.html" class="ml-20 mt-2.5 hover:text-purple-500">Home</a>
+                <a href="#" class="ml-5 mt-2.5 text-purple-500 transition-colors duration-200">Documentation</a>
+                <a href="#" class="ml-5 mt-2.5 hover:text-purple-500 transition-colors duration-200">About</a>
+                <div class=" flex float-right">
+                    <a href="#" class="mr-5 mt-2.5 text-purple-500">Log in</a>
+                    <a href="#" class="mr-24 bg-gradient-to-r to-blue-700 from-purple-700 pt-2.5 pb-2.5 pl-4 pr-4 rounded-lg text-white">Sign up</a>
+                </div>
+            </div>
+        </nav>
+
+        <div>
+            <input type="search" placeholder="search" class="text-black" id="search-bar">
+        </div>
+        <div class=" mt-24 ml-20 mr-52">
+            <div class="grid grid-cols-1" id="testing">
+                <a class="mb-4 mt-5">
+                    <div class="bg-gray-400 bg-opacity-40 rounded-lg">
+                        <div class="flex">
+                            <h1 class=" text-4xl text-purple-700">skLib</h1>
+                            <p class="text-gray-400 mt-1.5 ml-4">Expression</p>
+                        </div>
+                        <div class=" mt-5">
+                            <code class="bg-gray-800 ml-4 rounded-md flex pb-5 pt-2 pl-2 pr-2 mr-28">
+                                [the] QR( |-)Code [url] (for|of) the (two|2)[( |-)]factor [secret] code %string% with [account] name %string% 
+                            </code>
+                        </div>
+                        <div class="mt-5 ml-4 text-gray-400">
+                            <p>Returns (URL) QR code of a two-factor secret.</p>
+                        </div>
+                        <div class="mt-6 ml-2 text-2xl">
+                            <button id="test">More Information &#10148;</button>
+                            <button id="test2" onclick="test2()" class="ml-5">Test</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <script src="./js/fetch.js"></script>
+    </body>
+</html>
