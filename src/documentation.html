@@ -5,21 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="/dist/output.css" rel="stylesheet">
     </head>
-    <body class="bg-black text-white">
+    <body class="bg-gray-600 text-white">
+
         <nav>
             <div class="mt-5">
                 <a href="#" class="ml-24 hover:text-cyan-400 transition-colors duration-200">Home</a>
                 <a href="#" class="ml-10 text-cyan-400 transition-colors duration-200">Documentation</a>
                 <a href="#" class="ml-10 hover:text-cyan-400 transition-colors duration-200">About</a>
                 <div class="flex float-right">
-                    <input type="text" class="mr-5 rounded-lg text-white pt-1 pb-1 bg-gray-600" id="search-bar">
+                    <input type="text" class="mr-5 rounded-lg text-white pt-1 pb-1 bg-black border-cyan-400" id="search-bar">
                     <a class="mr-24 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl pt-1.5 pb-1.5 pl-3 pr-3" id="search-bar">Sign In</a>
                 </div>
             </div>
         </nav>
 
         <div class=" grid grid-cols-1 mt-52" id="start">
-            <a class="bg-gray-400 ml-24 mr-24 rounded-xl">
+            <a class="bg-slate-800 ml-24 mr-24 rounded-xl shadow-xl">
                 <div class="ml-4">
                     <div class="flex float-right mr-7">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
@@ -29,7 +30,7 @@
                     <h1 class=" leading-6 text-3xl mt-2 text-blue-600 font-medium">ADDON</h1>
                     <p class=" text-white mb-5 ml-2">TYPE</p>
                 </div>
-                <code class="bg-gray-600 ml-5 flex mr-5 rounded-md pb-5 pt-2 pl-2 pr-2">
+                <code class="bg-black ml-5 flex mr-5 rounded-md pb-5 pt-2 pl-2 pr-2">
                     hello
                 </code>
                 <p class="mt-8 ml-7 text-gray-600">DESCRIPTION</p>
@@ -40,6 +41,6 @@
                 </button>
             </a>
         </div>
-        <script src="./js/fetch.js"></script>
+        <script type="module" src="./js/fetch.js"></script>
     </body>
 </html>
