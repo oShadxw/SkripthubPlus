@@ -1,3 +1,5 @@
+// Trello: 
+
 import { createSyntax, allSyntax } from './syntax.js';
 
 const start = document.getElementById('start');
@@ -5,6 +7,12 @@ const search_bar = document.getElementById('search-bar');
 
 let timer;
 let lastResult;
+let filters = [{
+    "addons": null,
+    "type": null,
+    "description": null,
+    "id": null
+}];
 
 search_bar.addEventListener('keyup', function() {
     clearTimeout(timer);
@@ -16,6 +24,16 @@ search_bar.addEventListener('keyup', function() {
             start.removeChild(start.lastElementChild);
         }
 
+        if (search_bar.value.startsWith("addon:")) {
+            var filter = search_bar.value.replace("addon:", "");
+            filters.addons = filter;
+        } else if (search_bar.value.startsWith("type:")) {
+            var filter = search_bar.value.replace("type:", "");
+            filters.type = filter;
+        } else if (search_bar.value.startsWith("id:")) {
+            var filter = search_bar.value.replace("id:", "");
+            filters.id = filter;
+        }
         listsPost('start', search_bar.value);
     }, 500);
 });
@@ -59,10 +77,23 @@ function listsPost(postContainerElementID, search) {
     let sorted = allSyntax;
     if (!search != null) {
         sorted = allSyntax.filter((s) => {
-            return s.syntax.pattern.toLowerCase().includes(search.toLowerCase());
+            if (filters.addons != null) {
+                return s.addon.name.toLowerCase().includes(filters.addons.toLowerCase());
+            } else if (filters.type != null) {
+                return s.syntax.type.toLowerCase().includes(filters.type.toLowerCase());
+            } else if (filters.id != null) {
+                return s.syntax.id.toString().toLowerCase().includes(filters.id.toString().toLowerCase());
+            } else {
+                return s.syntax.pattern.toLowerCase().includes(search.toLowerCase());
+            }
         })
     }
-    
+    filters = [{
+        "addons": null,
+        "type": null,
+        "description": null,
+        "id": null
+    }];
     sorted.forEach((x, i) => {
         postElement(x);
     })
