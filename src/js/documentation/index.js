@@ -134,6 +134,6 @@ function postElement(post) {
 function create(element, c, text) {
     const el = document.createElement(element);
     if (c != null) el.setAttribute('class', c);
-    if (text != null) el.innerHTML = text;
+    if (text != null) el.innerText = text;
     return el;
 }
